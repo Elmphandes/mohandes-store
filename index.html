@@ -1,170 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>مكتبة المهندس | التسوق أونلاين</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial;background:#f5f6fa;color:#222}
-header{background:#0874b9;color:white;text-align:center;padding:25px 12px}
-header h1{margin:0;font-size:30px}
-header p{margin:10px 0 0}
-nav{background:white;padding:13px;text-align:center;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #ddd}
-button{cursor:pointer;border:0;border-radius:7px;padding:11px 16px;font-weight:bold}
-.cartbtn{background:#ffca28;color:#222}
-main{max-width:1100px;margin:auto;padding:18px}
-h2{color:#0874b9}
-.categories{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-.categories button{background:#e3f2fd;color:#0874b9}
-.categories button.active{background:#0874b9;color:white}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:15px}
-.card{background:white;border-radius:12px;padding:13px;text-align:center;box-shadow:0 2px 9px #ddd}
-.card .emoji{font-size:48px;background:#f1f6fa;border-radius:9px;padding:15px}
-.card h3{font-size:16px;min-height:38px}
-.price{color:#0874b9;font-weight:bold;font-size:19px}
-.add{background:#0874b9;color:white;width:100%;margin-top:8px}
-#cart{background:white;padding:18px;border-radius:12px;margin-top:25px}
-.cartrow{display:flex;justify-content:space-between;gap:10px;padding:10px;border-bottom:1px solid #eee;align-items:center}
-.cartrow button{padding:5px 10px;background:#eee}
-.total{font-size:21px;font-weight:bold;color:#0874b9}
-input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ccc;border-radius:7px;font-family:inherit}
-.send{background:#168b48;color:white;width:100%;font-size:17px}
-footer{background:#222;color:white;text-align:center;padding:20px;margin-top:30px}
-</style>
-</head>
-<body>
-
-<header>
-<h1>مكتبة المهندس</h1>
-<p>كل ما تحتاجه من أدوات مكتبية ومدرسية وخدمات طباعة في مكان واحد</p>
-</header>
-
-<nav>
-<button class="cartbtn" onclick="document.getElementById('cart').scrollIntoView()">
- سلة المشتريات (<span id="count">0</span>)
-</button>
-</nav>
-
-<main>
-<h2>تسوق منتجاتنا</h2>
-<div class="categories" id="categories"></div>
-<div class="products" id="products"></div> <div class="product-card">
- <h3>طباعة</h3  <p class="price">السعر: 1 جنيه</p>
- <button onclick="addToCart({id: 'print_1', name: 'طباعة', price: 1})">إضافة إلى السلة</button>
-</div>
-
-
-<section id="cart">
-<h2> سلة مشترياتك</h2>
-<div id="cartitems">السلة فارغة حاليًا</div>
-<p class="total">الإجمالي: <span id="total">0</span> جنيه</p>
-<div class="product-card">
- <h3>طباعة</h3>
- <p class="price">السعر: 1 جنيه</p>
- <button onclick="addToCart({id: 'print_1', name: 'طباعة', price: 1})">إضافة إلى السلة</button>
-</div>
-
-<h2>بيانات التوصيل</h2>
-<input id="customer" placeholder="اسم العميل">
-<input id="phone" type="tel" placeholder="رقم الموبايل">
-<textarea id="address" placeholder="العنوان بالتفصيل"></textarea>
-<textarea id="notes" placeholder="ملاحظات إضافية (اختياري)"></textarea>
-<button class="send" onclick="sendOrder()">إرسال الطلب على واتساب</button>
-</section>
-</main>
-
-<footer>
-<strong>مكتبة المهندس</strong>
-<p>مدينة العبور - نورتونا </p>
-</footer>
-
-<script>
-const whatsapp = "201122273609";
-
-const items = [
-{id:1,name:"كشكول مدرسي",price:25,cat:"كشاكيل",emoji:""},
-{id:2,name:"قلم جاف",price:10,cat:"أدوات مكتبية",emoji:""},
-{id:3,name:"قلم رصاص",price:8,cat:"أدوات مكتبية",emoji:""},
-{id:4,name:"مقلمة",price:45,cat:"أدوات مكتبية",emoji:""},
-{id:5,name:"ألوان خشب",price:60,cat:"أدوات فنية",emoji:""},
-{id:6,name:"مقص مدرسي",price:20,cat:"أدوات فنية",emoji:""},
-{id:7,name:"كتاب خارجي",price:100,cat:"كتب خارجية",emoji:""},
-{id:8,name:"مسطرة",price:10,cat:"أدوات مكتبية",emoji:""}
-];
-
-let cart = {};
-
-function showCategories(){
-let cats=["الكل",...new Set(items.map(x=>x.cat))];
-document.getElementById("categories").innerHTML=cats.map(c=>
-<button onclick="showProducts('${c}',this)" class="${c==='الكل'?'active':''}">${c}</button>
-).join("");
-}
-
-function showProducts(cat="الكل"){
-document.getElementById("products").innerHTML=items.filter(x=>cat==="الكل"||x.cat===cat).map(x=>`
-<div class="card">
-<div class="emoji">${x.emoji}</div>
-<h3>${x.name}</h3>
-<div class="price">${x.price} جنيه</div>
-<button class="add" onclick="add(${x.id})">أضف إلى السلة +</button>
-</div>`).join("");
-document.querySelectorAll(".categories button").forEach(b=>b.classList.toggle("active",b.textContent===cat));
-}
-
-function add(id){
-cart[id]=(cart[id]||0)+1;
-updateCart();
-}
-
-function change(id,n){
-cart[id]=(cart[id]||0)+n;
-if(cart[id]<=0)delete cart[id];
-updateCart();
-}
-
-function updateCart(){
-let count=0,total=0,html="";
-for(let id in cart){
-let x=items.find(p=>p.id==id),q=cart[id];
-count+=q;total+=q*x.price;
-html+=`<div class="cartrow">
-<span>${x.name}<br>${x.price} × ${q}</span>
-<span>
-<button onclick="change(${id},-1)">−</button>
-<button onclick="change(${id},1)">+</button>
-</span>
-</div>`;
-}
-document.getElementById("count").textContent=count;
-document.getElementById("total").textContent=total;
-document.getElementById("cartitems").innerHTML=html||"السلة فارغة حاليًا";
-}
-
-function sendOrder(){
-if(!Object.keys(cart).length){alert("السلة فارغة");return;}
-let name=document.getElementById("customer").value.trim();
-let phone=document.getElementById("phone").value.trim();
-let address=document.getElementById("address").value.trim();
-let notes=document.getElementById("notes").value.trim();
-if(!name||!phone||!address){alert("من فضلك أكمل بيانات العميل والعنوان");return;}
-
-let total=0,msg="طلب جديد من متجر مكتبة المهندس%0A";
-msg+="الاسم: "+encodeURIComponent(name)+"%0A";
-msg+="الموبايل: "+encodeURIComponent(phone)+"%0A";
-msg+="العنوان: "+encodeURIComponent(address)+"%0A%0A";
-for(let id in cart){
-let x=items.find(p=>p.id==id);
-total+=x.price*cart[id];
-msg+=encodeURIComponent(x.name)+" × "+cart[id]+" = "+(x.price*cart[id])+" جنيه%0A";
-}
-msg+="%0Aالإجمالي: "+total+" جنيه";
-if(notes)msg+="%0Aملاحظات: "+encodeURIComponent(notes);
-window.open("https://wa.me/"+whatsapp+"?text="+msg,"_blank");
-}
-
-showCategories();
-showProducts();
-</script>
-</body>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#164e63">
+  <title>مكتبة المهندس | أدوات مكتبية وطلبات طباعة</title>
+  <style>
+    :root {
+      --ink: #17324d;
+      --teal: #0f766e;
+      --teal-dark: #115e59;
+      --cream: #f8f7f2;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --white: #fff;
+      --gold: #f4b942;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1100px, 92%); margin: auto; }
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--teal-dark); }
+    .navlinks { display: flex; align-items: center; gap: 22px; font-size: .94rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--teal);
+      color: var(--white);
+    }
+    .button:hover { background: var(--teal-dark); }
+    .button.light { color: var(--teal-dark); background: var(--white); }
+    .hero {
+      padding: 70px 0;
+      background: radial-gradient(circle at 15% 25%, #d5eee5 0, transparent 30%),
+        linear-gradient(135deg, #eaf5f1, #f8f7f2 70%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 38px; }
+    .tag { color: var(--teal); font-weight: 700; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.2; margin: 10px 0 16px; }
+    .hero p { max-width: 590px; color: #475569; font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 18px 45px #17324d12;
+    }
+    .hero-icon { font-size: 5rem; text-align: center; }
+    .hero-card h2 { text-align: center; margin: 0; }
+    section { padding: 58px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 25px; }
+    .section-head h2 { font-size: 1.8rem; margin: 0; }
+    .section-head p { color: var(--muted); margin: 4px 0 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+    .card-icon { font-size: 2rem; }
+    .card h3 { margin: 8px 0 5px; }
