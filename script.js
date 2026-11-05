@@ -13,6 +13,12 @@ const products = [
   {id:9,name:"مسطرة هندسية معدنية",category:"أدوات هندسية",price:55,emoji:"📏",tag:""},
   {id:10,name:"مرجع ميكانيكا هندسية",category:"كتب ومراجع",price:220,emoji:"📙",tag:""},
   {id:11,name:"ملف حفظ أوراق",category:"أدوات مكتبية",price:28,emoji:"🗂️",tag:""},
+  const printingPrices = {
+  blackWhite: 1,
+  color: 3,
+  doubleFace: 1.5,
+  binding: 15
+
   {id:12,name:"كشكول سلك فاخر",category:"مستلزمات دراسية",price:48,emoji:"📔",tag:""}
 ];
 
