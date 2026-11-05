@@ -1,8 +1,8 @@
 // بيانات المنتجات التجريبية: عدّل الأسماء والأسعار والصور التعبيرية كما تريد.
 const products = [
   {id:1,name:" الوان طباعة",category:"طباعة",price:5,emoji:"📘",tag:"الأكثر طلباً"},
-  {id:1,name:" اسود طباعة",category:"طباعة",price:1,emoji:"📘",tag:"الأكثر طلباً"},
-  {id:1,name:" نكعيب",category:"طباعة",price:25,emoji:"📘",tag:"الأكثر طلباً"},
+  {id:13,name:" اسود طباعة",category:"طباعة",price:1,emoji:"📘",tag:"الأكثر طلباً"},
+  {id:14,name:" نكعيب",category:"طباعة",price:25,emoji:"📘",tag:"الأكثر طلباً"},
   {id:2,name:"الرسم الهندسي والإسقاط",category:"كتب ومراجع",price:145,emoji:"📗",tag:""},
   {id:3,name:"آلة حاسبة علمية",category:"أدوات هندسية",price:320,emoji:"🧮",tag:""},
   {id:4,name:"طقم أدوات رسم هندسي",category:"أدوات هندسية",price:95,emoji:"📐",tag:""},
