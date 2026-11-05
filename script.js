@@ -1,71 +1,15 @@
-function orderOnWhatsapp(){
-  if(!cart.length){
-    showToast("السلة فارغة، أضف منتجاً أولاً");
-    return;
-  }
-
-  const items = cart.map(x => ({
-    product: products.find(p => p.id === x.id),
-    qty: x.qty
-  })).filter(x => x.product);
-
-  if(!items.length) return;
-
-  const total = items.reduce((sum,x) => sum + x.product.price * x.qty, 0);
-  const instaPay = "eslamkamal2792@instapay";
-
-  // ملخص + فورم في نافذة واحدة
-  const lines = items.map(x =>
-    `• ${x.product.name} × ${x.qty} = ${money(x.product.price * x.qty)}`
-  ).join("\n");
-
-  const info =
-    `الدفع عن طريق InstaPay\n\n` +
-    `${lines}\n\n` +
-    `الإجمالي: ${money(total)}\n\n` +
-    `حوّل على: ${instaPay}\n` +
-    `ثم املأ البيانات التالية:`;
-
-  // استبدال الـ alert/prompts بفورم بسيط
-  const name = prompt(info + "\n\nاكتب اسمك بالكامل:");
-  if(!name?.trim()) return;
-
-  let phone = prompt("اكتب رقم موبايلك (11 رقم يبدأ بـ 01):");
-  phone = phone?.trim().replace(/[^\d]/g, "");
-  if(!/^01\d{9}$/.test(phone || "")){
-    showToast("رقم الموبايل غير صحيح");
-    return;
-  }
-
-  const address = prompt("اكتب عنوان الاستلام:")?.trim();
-  if(!address) return;
-
-  const transaction = prompt("اكتب رقم العملية بعد التحويل:")?.trim();
-  if(!transaction || transaction.length < 4){
-    showToast("اكتب رقم عملية صحيح");
-    return;
-  }
-
-  if(typeof WHATSAPP_NUMBER === "undefined" || !WHATSAPP_NUMBER){
-    showToast("رقم الواتساب غير متوفر حالياً");
-    return;
-  }
-
-  const message =
-    `مرحباً مكتبة المهندس، أريد تأكيد طلبي:\n\n` +
-    `${lines}\n\n` +
-    `الإجمالي: ${money(total)}\n\n` +
-    `طريقة الدفع: InstaPay\n` +
-    `عنوان الدفع: ${instaPay}\n` +
-    `رقم العملية: ${transaction}\n` +
-    `اسم العميل: ${name.trim()}\n` +
-    `رقم الهاتف: ${phone}\n` +
-    `العنوان: ${address}\n\n` +
-    `حالة الطلب: في انتظار مراجعة التحويل وتأكيده.`;
-
-  const waNumber = String(WHATSAPP_NUMBER).replace(/[^\d]/g, "");
-  window.open(
-    `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`,
-    "_blank"
-  );
-}
+<!-- حط ده قبل </body> -->
+<div id="orderModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;align-items:center;justify-content:center;padding:15px">
+  <div style="background:#fff;border-radius:12px;max-width:450px;width:100%;padding:20px;max-height:90vh;overflow:auto" dir="rtl">
+    <h3 style="margin:0 0 10px">تأكيد الطلب - الدفع InstaPay</h3>
+    <div id="orderSummary" style="background:#f8f9fa;border-radius:8px;padding:10px;font-size:14px;white-space:pre-line;margin-bottom:12px"></div>
+    <input id="f_name" placeholder="اسمك بالكامل" style="width:100%;margin-bottom:8px;padding:10px;border:1px solid #ddd;border-radius:8px" />
+    <input id="f_phone" placeholder="رقم الموبايل 01xxxxxxxxx" inputmode="numeric" maxlength="11" style="width:100%;margin-bottom:8px;padding:10px;border:1px solid #ddd;border-radius:8px" />
+    <input id="f_address" placeholder="عنوان الاستلام" style="width:100%;margin-bottom:8px;padding:10px;border:1px solid #ddd;border-radius:8px" />
+    <input id="f_trx" placeholder="رقم العملية بعد التحويل" style="width:100%;margin-bottom:12px;padding:10px;border:1px solid #ddd;border-radius:8px" />
+    <div style="display:flex;gap:8px">
+      <button onclick="submitOrderForm()" style="flex:1;background:#25D366;color:#fff;border:0;padding:12px;border-radius:8px;font-weight:bold">تأكيد عبر واتساب</button>
+      <button onclick="document.getElementById('orderModal').style.display='none'" style="padding:12px 16px;border:1px solid #ddd;border-radius:8px;background:#fff">إلغاء</button>
+    </div>
+  </div>
+</div>
