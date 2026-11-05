@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="مكتبة المهندس - كتب وأدوات هندسية ومستلزمات مكتبية">
+  <title>مكتبة المهندس | تسوق أونلاين</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topbar">أهلاً بك في مكتبة المهندس — كل احتياجاتك الدراسية والهندسية في مكان واحد</div>
+  <header class="header">
+    <a class="brand" href="#" aria-label="مكتبة المهندس - الرئيسية">
+      <span class="brand-mark">م</span>
+      <span><strong>مكتبة المهندس</strong><small>معاك في كل خطوة</small></span>
+    </a>
+    <form class="search" id="searchForm">
+      <input id="searchInput" type="search" placeholder="ابحث عن كتاب أو منتج..." aria-label="ابحث عن منتج">
+      <button aria-label="بحث">⌕</button>
+    </form>
+    <button class="cart-button" id="openCart" aria-label="فتح سلة المشتريات">
+      <span>سلة المشتريات</span><b>🛒</b><i id="cartCount">0</i>
+    </button>
+  </header>
+
+  <nav class="nav">
+    <a href="#home" class="active">الرئيسية</a>
+    <a href="#products">كل المنتجات</a>
+    <a href="#about">عن المكتبة</a>
+    <a href="#contact">تواصل معنا</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">اختياراتك تبدأ من هنا</span>
+        <h1>كل ما تحتاجه<br><em>في مكان واحد</em></h1>
+        <p>كتب ومراجع، أدوات هندسية، ومستلزمات مكتبية مختارة بعناية لتساعدك على التفوق والإنجاز.</p>
+        <a class="primary-btn" href="#products">تسوق الآن <span>←</span></a>
+        <div class="hero-points"><span>✓ منتجات متنوعة</span><span>✓ أسعار بالجنيه المصري</span><span>✓ طلب سهل وسريع</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-circle"></div>
+        <div class="book book-one"><span>ENGINEERING</span><b>مبادئ الهندسة</b></div>
+        <div class="book book-two"><span>STUDY NOTES</span><b>طريقك للنجاح</b></div>
+        <div class="pencil">✎</div><div class="ruler">〰</div>
+        <div class="art-caption">LEARN · CREATE · ACHIEVE</div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div><span class="benefit-icon">📚</span><span><b>تشكيلة متنوعة</b><small>كتب وأدوات لكل تخصص</small></span></div>
+      <div><span class="benefit-icon">💳</span><span><b>أسعار واضحة</b><small>بالجنيه المصري</small></span></div>
+      <div><span class="benefit-icon">📦</span><span><b>طلب بسهولة</b><small>تواصل مباشر لتأكيد الطلب</small></span></div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-heading">
+        <div><span class="eyebrow">تصفح مجموعتنا</span><h2>منتجات المكتبة</h2><p>اختار احتياجاتك وأضفها إلى سلة المشتريات.</p></div>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter active" data-category="الكل">الكل</button>
+        <button class="filter" data-category="كتب ومراجع">كتب ومراجع</button>
+        <button class="filter" data-category="أدوات هندسية">أدوات هندسية</button>
+        <button class="filter" data-category="أدوات مكتبية">أدوات مكتبية</button>
+        <button class="filter" data-category="مستلزمات دراسية">مستلزمات دراسية</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>لا توجد منتجات تطابق بحثك. جرّب كلمة أو قسماً آخر.</div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-icon">✦</div>
+      <div><span class="eyebrow">مكتبة المهندس</span><h2>أدوات تساعدك تحقق طموحك</h2><p>نوفر لك مجموعة من الكتب والأدوات المكتبية والهندسية لتكون مستعداً لكل فكرة ومشروع ومحاضرة.</p></div>
+      <a href="#contact" class="outline-btn">تواصل معنا</a>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div><span class="eyebrow">يسعدنا تواصلك</span><h2>عندك استفسار؟ إحنا معاك</h2><p>تواصل معنا لمعرفة توافر المنتجات أو تفاصيل التوصيل والطلبات.</p></div>
+      <a class="whatsapp-btn" id="contactWhatsapp" href="#" target="_blank" rel="noopener">تواصل عبر واتساب <span>↗</span></a>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-mark">م</span><span><strong>مكتبة المهندس</strong><small>معاك في كل خطوة</small></span></a><p>© <span id="year"></span> مكتبة المهندس. جميع الحقوق محفوظة.</p></footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="سلة المشتريات" aria-hidden="true">
+    <div class="drawer-head"><div><span class="eyebrow">مشترياتك</span><h2>سلة المشتريات</h2></div><button class="close-btn" id="closeCart" aria-label="إغلاق">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div class="total-line"><span>الإجمالي</span><strong id="cartTotal">٠ ج.م</strong></div>
+      <button class="checkout-btn" id="checkoutBtn">إتمام الطلب عبر واتساب</button>
+      <small>سيتم إرسال تفاصيل طلبك إلى واتساب لتأكيد السعر والتوصيل.</small>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status"></div>
+
+  <div class="order-modal" id="orderModal" aria-hidden="true">
+    <div class="order-card" dir="rtl">
+      <div class="order-head"><h3>تأكيد الطلب - الدفع InstaPay</h3><button class="close-btn" id="orderClose" aria-label="إغلاق">×</button></div>
+      <div class="order-summary" id="orderSummary"></div>
+      <input id="f_name" placeholder="اسمك بالكامل" autocomplete="name" />
+      <input id="f_phone" placeholder="رقم الموبايل 01xxxxxxxxx" inputmode="numeric" maxlength="11" />
+      <input id="f_address" placeholder="عنوان الاستلام" autocomplete="street-address" />
+      <input id="f_trx" placeholder="رقم العملية بعد التحويل" />
+      <div class="order-actions">
+        <button id="orderSubmit" class="checkout-btn">تأكيد عبر واتساب</button>
+        <button id="orderCancel" class="outline-btn" onclick="document.getElementById('orderModal').classList.remove('show')">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+<script>window.__CF$cv$params={r:'a55bb1b28cdb4348',t:'MTc5Mzg3OTk4NQ==',u:'01a1ab944cf772c5b90130ab715e1076',ut:'6lrVJ6TiVvBgVHPriEVPZoywdaNe5UE3gPgteYJ9EdQ-1793879985-1.2.1.1-bOILh6qzle3S5kw7s6l6YP6B7Ycx5oSQzSbitZVNvr93bTCZkHl0Ii8eIIgmI0BqAQeKVHGkt2N9Q5hl3wjxGPxJkqqaON9_53mkrSSPTWY',i:60};(function(){if(!document.body)return;var l=window.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/precursor/main.js?ray=a55bb1b28cdb4348',s=document.createElement('script');s.src=o?new URL(u,o).href:u;document.head.appendChild(s);})();</script></body>
+</html>
